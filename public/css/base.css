@@ -1,0 +1,194 @@
+:root {
+  /* Light theme colors */
+  --bg-color: #f0f0f3;
+  --text-color: #222;
+  --primary-color: #d63384; /* Pink/purple */
+  --primary-glow: #d63384aa;
+  --input-bg: #fff;
+  --input-border: #ccc;
+  --button-bg: linear-gradient(45deg, #d63384, #6f42c1);
+  --button-hover-bg: linear-gradient(45deg, #6f42c1, #d63384);
+  --shadow-color: rgba(214, 51, 132, 0.3);
+}
+
+[data-theme="dark"] {
+  /* Dark theme colors */
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --primary-color: #ff00cc;
+  --primary-glow: #ff00ccaa;
+  --input-bg: #1e1e1e;
+  --input-border: #333;
+  --button-bg: linear-gradient(45deg, #ff00cc, #3333ff);
+  --button-hover-bg: linear-gradient(45deg, #3333ff, #ff00cc);
+  --shadow-color: rgba(255, 0, 204, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 2rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: var(--input-bg);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px var(--shadow-color);
+  transition: background-color 0.3s ease;
+}
+
+h1 {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 8px var(--primary-glow);
+}
+
+/* Form Controls */
+.input,
+.select,
+.textarea {
+  display: block;
+  width: 100%;
+  background-color: var(--input-bg);
+  border: 2px solid var(--input-border);
+  border-radius: 6px;
+  color: var(--text-color);
+  padding: 0.6em 1em;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-glow);
+}
+
+/* Buttons */
+.button {
+  background: var(--button-bg);
+  color: #fff;
+  border: none;
+  padding: 0.75em 1.5em;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button:hover,
+.button:focus {
+  background: var(--button-hover-bg);
+  box-shadow: 0 0 12px var(--primary-glow);
+  transform: scale(1.05);
+  outline: none;
+}
+
+/* Labels */
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--text-color);
+}
+
+/* Checkbox and radio */
+.checkbox-group,
+.radio-group {
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.checkbox-group input[type="checkbox"],
+.radio-group input[type="radio"] {
+  accent-color: var(--primary-color);
+  margin-right: 0.5rem;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0.5em 1em;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-bottom: 1.5rem;
+  display: block;
+  width: fit-content;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--primary-color);
+  color: #121212;
+}
+
+/* Utility */
+.text-center {
+  text-align: center;
+}
+
+/* Select arrow select */
+.select {
+  position: relative;
+  padding-right: 2.5em; /* space for arrow */
+  appearance: none;      /* hide native arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--input-bg);
+  border: 2px solid var(--input-border);
+  border-radius: 6px;
+  color: var(--text-color);
+  padding: 0.6em 1em;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Custom arrow */
+.select::after {
+  content: '';
+  pointer-events: none; /* allow clicking through */
+  position: absolute;
+  top: 60%; /* move down */
+  right: 1em; /* distance from right */
+  width: 0.8em;
+  height: 0.8em;
+  border-left: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  transform: translateY(-50%) rotate(-45deg);
+  transition: border-color 0.3s ease;
+}
+
+/* Positioning the pseudo-element requires relative parent */
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 400px;
+}
