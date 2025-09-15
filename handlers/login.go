@@ -12,6 +12,7 @@ import (
 
 // LoginHandler serves /login path
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
+	storage.UpdateRequestCounter("login")
 	errorMessage := []byte(`<p class="error-message">Wrong username or password</p>`)
 
 	switch r.Method {

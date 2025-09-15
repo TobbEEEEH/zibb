@@ -10,6 +10,7 @@ import (
 )
 
 func SignupHandler(w http.ResponseWriter, r *http.Request) {
+	storage.UpdateRequestCounter("signup")
 	signup, err := Templates.Load("signupForm.html")
 	if err != nil {
 		http.Error(w, "Issue loading HTML", http.StatusInternalServerError)

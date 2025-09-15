@@ -6,9 +6,11 @@ import (
 
 	"server/internal/auth"
 	"server/models"
+	"server/storage"
 )
 
 func ProfileHandler(w http.ResponseWriter, r *http.Request) {
+	storage.UpdateRequestCounter("profile")
 	tmpl, err := Templates.Load("profile.html")
 	if err != nil {
 		http.Error(w, "Could not load page", http.StatusInternalServerError)
