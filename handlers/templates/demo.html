@@ -8,8 +8,7 @@
     <script src="https://unpkg.com/htmx.org@2.0.7/dist/htmx.min.js"></script>
   </head>
   <body>
-    <h1>This site is still under construction</h1>
-    <div class="container">
+    <nav>
       <button
         id="theme-toggle"
         class="theme-toggle-btn"
@@ -17,6 +16,51 @@
       >
         Switch to {{if eq .Theme "light"}}Dark{{else}}Light{{end}} Mode
       </button>
+      <a href="/login"></a>
+      <button
+        hx-get="/login"
+        hx-target="#app"
+        hx-swap="innerHTML"
+        class="theme-toggle-btn"
+      >
+        Login
+      </button>
+      <button
+        hx-get="/signup"
+        hx-target="#app"
+        hx-swap="innerHTML"
+        class="theme-toggle-btn"
+      >
+        Signup
+      </button>
+    </nav>
+    <h1>This site is still under construction</h1>
+    <div class="container" id="app" style="min-height: 80vh">
+      <div class="container" style="display: flex">
+        <button
+          id="theme-toggle"
+          class="theme-toggle-btn"
+          aria-label="Toggle dark/light theme"
+        >
+          Switch to {{if eq .Theme "light"}}Dark{{else}}Light{{end}} Mode
+        </button>
+        <button
+          hx-get="/login"
+          hx-target="#app"
+          hx-swap="innerHTML"
+          class="theme-toggle-btn"
+        >
+          Login
+        </button>
+        <button
+          hx-get="/signup"
+          hx-target="#app"
+          hx-swap="innerHTML"
+          class="theme-toggle-btn"
+        >
+          Signup
+        </button>
+      </div>
 
       <h1>Welcome to Zibb</h1>
 

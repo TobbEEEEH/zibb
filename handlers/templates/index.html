@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-theme="{{.Theme}}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zibb</title>
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <script src="https://unpkg.com/htmx.org@2.0.7/dist/htmx.min.js"></script>
+    <script src="/static/javascript/nav.js" defer></script>
+  </head>
+  <body>
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <!-- <a href="#" class="brand"> -->
+      <!-- <span class="logo">Z</span> -->
+      <!-- <span class="site">ibb</span> -->
+      <!-- </a> -->
+
+      <div class="nav-links" role="menubar">
+        <!-- <a href="#home" role="menuitem">Home</a> -->
+        <!-- <a href="#features" role="menuitem">Features</a> -->
+        <!-- <a href="#contact" role="menuitem">Contact</a> -->
+        <a
+          hx-get="/signup"
+          hx-target="#home"
+          hx-swap="innerHTML"
+          role="menuitem"
+          >Signup</a
+        >
+      </div>
+
+      <div class="theme-switch" title="Toggle light / dark">
+        <input
+          id="theme-toggle"
+          type="checkbox"
+          aria-label="Toggle dark mode"
+        />
+        <label for="theme-toggle" class="switch-ui" tabindex="0">
+          <span class="icon-wrap" aria-hidden="true">
+            <svg
+              id="theme-icon"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+              <g
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              >
+                <line x1="12" y1="1" x2="12" y2="3.2"></line>
+                <line x1="12" y1="20.8" x2="12" y2="23"></line>
+                <line x1="1" y1="12" x2="3.2" y2="12"></line>
+                <line x1="20.8" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="4.22" x2="5.8" y2="5.8"></line>
+                <line x1="18.2" y1="18.2" x2="19.78" y2="19.78"></line>
+                <line x1="4.22" y1="19.78" x2="5.8" y2="18.2"></line>
+                <line x1="18.2" y1="5.8" x2="19.78" y2="4.22"></line>
+              </g>
+            </svg>
+          </span>
+          <span class="switch-label">Toggle</span>
+        </label>
+      </div>
+    </nav>
+    <main class="page">
+      <section class="container" id="home">
+        <form
+          hx-post="/login"
+          hx-target="#message"
+          hx-swap="innerHTML"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <div style="max-width: 400px">
+            <label for="username">Name</label>
+            <input id="username" name="name" placeholder="Your username" />
+
+            <label for="password">Password</label>
+            <input
+              id="email"
+              name="email"
+              type="password"
+              placeholder="Your password"
+            />
+            <div id="message"></div>
+          </div>
+
+          <!-- <label for="topic">Topic</label> -->
+          <!-- <div class="select-wrapper"> -->
+          <!--   <select id="topic" name="topic"> -->
+          <!--     <option>General</option> -->
+          <!--     <option>Support</option> -->
+          <!--     <option>Billing</option> -->
+          <!--   </select> -->
+          <!-- </div> -->
+          <!---->
+          <!-- <label for="message">Message</label> -->
+          <!-- <textarea -->
+          <!--   id="message" -->
+          <!--   name="message" -->
+          <!--   rows="5" -->
+          <!--   placeholder="Tell us more..." -->
+          <!-- ></textarea> -->
+
+          <div style="margin-top: 1rem">
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

@@ -5,10 +5,11 @@
   --primary-color: #d63384; /* Pink/purple */
   --primary-glow: #d63384aa;
   --input-bg: #fff;
-  --input-border: #ccc;
+  --input-border: rgba(0, 0, 0, 0.12);
   --button-bg: linear-gradient(45deg, #d63384, #6f42c1);
   --button-hover-bg: linear-gradient(45deg, #6f42c1, #d63384);
-  --shadow-color: rgba(214, 51, 132, 0.3);
+  --shadow-color: rgba(214, 51, 132, 0.25);
+  --error-color: #d32f2f;
 }
 
 [data-theme="dark"] {
@@ -18,33 +19,205 @@
   --primary-color: #ff00cc;
   --primary-glow: #ff00ccaa;
   --input-bg: #1e1e1e;
-  --input-border: #333;
+  --input-border: rgba(255, 255, 255, 0.12);
   --button-bg: linear-gradient(45deg, #ff00cc, #3333ff);
   --button-hover-bg: linear-gradient(45deg, #3333ff, #ff00cc);
   --shadow-color: rgba(255, 0, 204, 0.3);
+  --error-color: #a30b0b;
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.8rem;
+  font-weight: 900;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
   margin: 0;
+  padding: 0; /* nav handles outer spacing */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.4)
+  );
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--input-border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 6px 18px var(--shadow-color);
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+
+[data-theme="dark"] .nav {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.01)
+  );
+  border-bottom: 1px solid var(--input-border);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+}
+
+.brand {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.brand .logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--button-bg);
+  box-shadow:
+    0 6px 16px var(--shadow-color),
+    inset 0 -6px 12px rgba(255, 255, 255, 0.06);
+  display: inline-grid;
+  place-items: center;
+  color: white;
+  font-weight: 900;
+  font-size: 0.9rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition:
+    background 0.18s ease,
+    transform 0.12s ease,
+    color 0.18s ease;
+}
+
+.nav-links a:hover {
+  background: rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .nav-links a:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Theme switch (container) */
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.15rem 0.25rem;
+  border-radius: 999px;
+}
+
+.theme-switch input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.switch-ui {
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.25rem 0.45rem;
+  border-radius: 24px;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.switch-ui:focus {
+  outline: 2px solid var(--primary-color);
+}
+
+.icon-wrap {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--input-bg);
+  border: 2px solid var(--input-border);
+  box-shadow: 0 6px 18px var(--shadow-color);
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.theme-switch input[type="checkbox"]:checked + .switch-ui .icon-wrap {
+  transform: rotate(40deg) scale(0.98);
+  border-color: var(--primary-color);
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.85),
+    rgba(34, 34, 34, 0.6)
+  );
+}
+
+.switch-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.page {
   padding: 2rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 1.5rem auto;
   background-color: var(--input-bg);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 0 20px var(--shadow-color);
-  transition: background-color 0.3s ease;
+  border: 1px solid var(--input-border);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 h1 {
@@ -54,10 +227,9 @@ h1 {
   text-shadow: 0 0 8px var(--primary-glow);
 }
 
-/* Form Controls */
-.input,
-.select,
-.textarea {
+input,
+select,
+textarea {
   display: block;
   width: 100%;
   background-color: var(--input-bg);
@@ -67,21 +239,22 @@ h1 {
   padding: 0.6em 1em;
   font-size: 1rem;
   margin-bottom: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   font-family: inherit;
   resize: vertical;
 }
 
-.input:focus,
-.select:focus,
-.textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 8px var(--primary-glow);
 }
 
-/* Buttons */
-.button {
+button {
   background: var(--button-bg);
   color: #fff;
   border: none;
@@ -91,72 +264,46 @@ h1 {
   cursor: pointer;
   width: 100%;
   font-size: 1rem;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.button:hover,
-.button:focus {
+button:hover,
+button:focus {
   background: var(--button-hover-bg);
   box-shadow: 0 0 12px var(--primary-glow);
   transform: scale(1.05);
   outline: none;
 }
 
-/* Labels */
-.label {
+label {
   display: block;
   font-weight: 600;
   margin-bottom: 0.4rem;
   color: var(--text-color);
 }
 
-/* Checkbox and radio */
-.checkbox-group,
-.radio-group {
-  margin-bottom: 1rem;
-  color: var(--text-color);
-  font-weight: 500;
+@media (max-width: 675px) {
+  .nav-links {
+    display: none;
+  }
+  .brand {
+    gap: 0.4rem;
+  }
 }
 
-.checkbox-group input[type="checkbox"],
-.radio-group input[type="radio"] {
-  accent-color: var(--primary-color);
-  margin-right: 0.5rem;
-  width: 18px;
-  height: 18px;
-  vertical-align: middle;
-}
-
-/* Theme toggle button */
-.theme-toggle-btn {
-  background: transparent;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  padding: 0.5em 1em;
-  border-radius: 30px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  margin-bottom: 1.5rem;
-  display: block;
-  width: fit-content;
-}
-
-.theme-toggle-btn:hover {
-  background-color: var(--primary-color);
-  color: #121212;
-}
-
-/* Utility */
-.text-center {
-  text-align: center;
-}
-
-/* Select arrow select */
-.select {
+.select-wrapper {
   position: relative;
-  padding-right: 2.5em; /* space for arrow */
-  appearance: none;      /* hide native arrow */
+  display: inline-block;
+  width: 100%;
+  max-width: 400px;
+}
+select {
+  position: relative;
+  padding-right: 2.5em;
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   background-color: var(--input-bg);
@@ -165,30 +312,22 @@ h1 {
   color: var(--text-color);
   padding: 0.6em 1em;
   font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   width: 100%;
   max-width: 400px;
 }
-
-/* Custom arrow */
-.select::after {
-  content: '';
-  pointer-events: none; /* allow clicking through */
+select::after {
+  content: "";
+  pointer-events: none;
   position: absolute;
-  top: 60%; /* move down */
-  right: 1em; /* distance from right */
+  top: 60%;
+  right: 1em;
   width: 0.8em;
   height: 0.8em;
   border-left: 2px solid var(--primary-color);
   border-bottom: 2px solid var(--primary-color);
   transform: translateY(-50%) rotate(-45deg);
   transition: border-color 0.3s ease;
-}
-
-/* Positioning the pseudo-element requires relative parent */
-.select-wrapper {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  max-width: 400px;
 }
